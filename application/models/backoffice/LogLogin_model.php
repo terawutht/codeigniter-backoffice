@@ -27,11 +27,16 @@ class LogLogin_model extends CI_Model
 
     public function insert_entry($action = '', $status = '')
     {
-        $this->data['username'] = !empty($this->input->post('username'))?$this->input->post('username'):NULL;
+        $username = '';
+        if(!empty($this->input->post('username'))){
+            $username = $this->input->post('username');
+        }elseif($this->session->has_userdata('email')){
+            $username = $this->session->userdata('email');
+        }
+        $this->data['username'] = $username;
         $this->data['action'] = $action;
         $this->data['status'] = $status;
-        $this->data['user_id'] = $this->session->has_userdata('user_id')?$this->session->userdata('user_id'):NULL; 
-        $this->data['date'] = _get_datetime();
+        $this->data['date_time'] = _get_datetime();
         $this->db->insert($this->table_name, $this->data);
     }
 

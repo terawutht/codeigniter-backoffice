@@ -58,7 +58,7 @@
                                         <td>{{item.username}}</td>
                                         <td class="text-left">{{item.action}}</td>
                                         <td class="text-center">{{item.status}}</td>
-                                        <td class="text-center">{{item.date}} </td>
+                                        <td class="text-center">{{item.date_time}} </td>
                                     </tr>
                                 </tbody>
                                 <tbody v-else>

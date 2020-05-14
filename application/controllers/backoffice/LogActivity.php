@@ -17,7 +17,7 @@ class LogActivity extends My_Controller
 
     public function show()
     {
-        $data['page_title'] = PROJECT_NAME . " | {$this->module}";
+        $data['page_title'] = PROJECT_NAME . " | Log activity";
         $data['menu_aside_group'] = $this->MenuMain_model->get_menu_aside_group();
         $data['menu_aside_main'] = $this->MenuMain_model->get_menu_aside_main();
         $data['menu_aside_sub'] = $this->MenuMain_model->get_menu_aside_sub();
