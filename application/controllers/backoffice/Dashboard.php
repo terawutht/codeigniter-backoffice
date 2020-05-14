@@ -16,9 +16,9 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
         $data['page_title'] = PROJECT_NAME." | Dashboard";
-        $data['menu_aside_group'] = $this->Menu_model->get_menu_aside_group();
-        $data['menu_aside_main'] = $this->Menu_model->get_menu_aside_main();
-        $data['menu_aside_sub'] = $this->Menu_model->get_menu_aside_sub();
+        $data['menu_aside_group'] = $this->MenuMain_model->get_menu_aside_group();
+        $data['menu_aside_main'] = $this->MenuMain_model->get_menu_aside_main();
+        $data['menu_aside_sub'] = $this->MenuMain_model->get_menu_aside_sub();
 
 
 

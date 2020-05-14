@@ -29,27 +29,47 @@
 
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">User </h3>
+                            <h3 class="card-title">User</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form" method="post" @submit="checkForm" action="<?php echo base_url() ?>backoffice/user/store">
+                        <form role="form" method="post" @submit="checkForm" action="<?php echo $action_url?>">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputFullName">Full name</label>
-                                    <input type="text" name="full_name" v-bind:class="{'is-invalid':isErrorName}" class="form-control" id="exampleInputFullName" v-model="full_name" placeholder="full name">
+                                <div class="form-group col-md-12 col-xl-8">
+                                    <label for="InputFullName">Full name</label>
+                                    <input type="text" name="full_name" v-bind:class="{'is-invalid':isErrorName}" class="form-control" id="InputFullName" v-model="full_name" placeholder="full name" autocomplete="off">
+                                </div>
+                                <div class="form-group col-md-12 col-xl-8">
+                                    <label for="InputEmail">Email address</label>
+                                    <input type="email" name="email" v-bind:class="{'is-invalid':isErrorEmail}" class="form-control" id="InputEmail" v-model="email" placeholder="Enter email" autocomplete="off">
+                                </div>
+                                <div class="form-group col-md-12 col-xl-8">
+                                    <label for="InputPassword">Password</label>
+                                    <input type="password" name="password" v-bind:class="{'is-invalid':isErrorPassword}" class="form-control" id="InputPassword" v-model="password"  autocomplete="off">
+                                </div>
+                                <div class="form-group col-md-12 col-xl-8">
+                                    <label for="InputConfirmPassword">Confirm Password</label>
+                                    <input type="password" name="confirm_password" v-bind:class="{'is-invalid':isErrorPassword}" class="form-control" id="InputConfirmPassword" v-model="confirmPassword" autocomplete="off">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" name="email" v-bind:class="{'is-invalid':isErrorEmail}" class="form-control" id="exampleInputEmail1" v-model="email" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
+                                    <label for="radioGroup">Group</label>
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" id="customRadio1" name="status" v-model="status" value="enable" checked>
+                                        <input class="custom-control-input" type="radio" id="radioGroup1" name="group_id" v-model="group_id" value="1">
+                                        <label for="radioGroup1" class="custom-control-label">admin</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" id="radioGroup2" name="group_id"  v-model="group_id" value="2" >
+                                        <label for="radioGroup2" class="custom-control-label">content</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="radioStatus">Status</label>
+                                    <div class="custom-control custom-radio">
+                                        <input class="custom-control-input" type="radio" id="customRadio1" name="status" v-model="status" value="enable">
                                         <label for="customRadio1" class="custom-control-label">เปิดการใช้งาน</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" type="radio" id="customRadio2" name="status"  v-model="status" value="disabled">
+                                        <input class="custom-control-input" type="radio" id="customRadio2" name="status"  v-model="status" value="disabled" >
                                         <label for="customRadio2" class="custom-control-label">ปิดการใช้งาน</label>
                                     </div>
                                 </div>
@@ -72,4 +92,4 @@
      window.url = "<?php echo $this->url;?>"
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script type="application/javascript" src="<?php echo base_url() ?>assets/js/add.js"></script>
+<script type="application/javascript" src="<?php echo base_url() ?>assets/js/user/add.js"></script>

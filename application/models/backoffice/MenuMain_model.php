@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Menu_model extends CI_Model
+class MenuMain_model extends CI_Model
 {
 
     public $title;
@@ -27,7 +27,7 @@ class Menu_model extends CI_Model
     {
         return array
         (
-            (object) array('id'=>1,'name'=>"User",'group_id'=>3,'path'=>'backoffice/user'),
+            (object) array('id'=>1,'name'=>"User",'group_id'=>3,'path'=>'backoffice/user/view'),
             (object) array('id'=>2,'name'=>"Permission",'group_id'=>3,'path'=>'backoffice/permission'),
             (object) array('id'=>3,'name'=>"Log",'group_id'=>3,'path'=>null),
         );
@@ -37,8 +37,8 @@ class Menu_model extends CI_Model
     {
         return array
         (
-            (object) array('id'=>1,'name'=>"Activities",'menu_main_id'=>3,'path'=>'backoffice/log-activitie'),
-            (object) array('id'=>2,'name'=>"Login",'menu_main_id'=>3,'path'=>'backoffice/log-login'),
+            (object) array('id'=>1,'name'=>"Activities",'menu_main_id'=>3,'path'=>'backoffice/log-activity/view'),
+            (object) array('id'=>2,'name'=>"Login",'menu_main_id'=>3,'path'=>'backoffice/log-login/view'),
         );
     }
 

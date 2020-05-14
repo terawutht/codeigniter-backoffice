@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','login','form');
+$autoload['helper'] = array('url','form','date');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,11 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('backoffice/Menu_model','backoffice/User_model');
+$autoload['model'] = array(
+    'backoffice/MenuMain_model',
+    'backoffice/UserProfile_model',
+    'backoffice/UserLogin_model',
+    'backoffice/LogActivity_model',
+    'backoffice/LogLogin_model'
+
+);

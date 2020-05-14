@@ -10,31 +10,32 @@ class User extends My_Controller
     {
         parent::__construct();
         $this->module = 'user';
-        $this->url = base_url()."backoffice/{$this->module}/";
-        $this->load->model('User_model','main');
-        $this->checkSessionLogin();
+        $this->url = base_url()."backoffice/user/";
+        $this->load->model('UserProfile_model','main');
+        $this->verify_logged_in();
     }
 
-    public function index()
+    public function show()
     {
         $data['page_title'] = PROJECT_NAME . " | {$this->module}";
-        $data['menu_aside_group'] = $this->Menu_model->get_menu_aside_group();
-        $data['menu_aside_main'] = $this->Menu_model->get_menu_aside_main();
-        $data['menu_aside_sub'] = $this->Menu_model->get_menu_aside_sub();
+        $data['menu_aside_group'] = $this->MenuMain_model->get_menu_aside_group();
+        $data['menu_aside_main'] = $this->MenuMain_model->get_menu_aside_main();
+        $data['menu_aside_sub'] = $this->MenuMain_model->get_menu_aside_sub();
 
         $this->load->view('backoffice/template/head', $data);
         $this->load->view('backoffice/template/nav');
         $this->load->view('backoffice/template/aside');
-        $this->load->view('backoffice/pages/user/index');
+        $this->load->view("backoffice/pages/{$this->module}/list");
         $this->load->view('backoffice/template/footer');
     }
 
-    public function add()
+    public function create()
     {
         $data['page_title'] = PROJECT_NAME . " | {$this->module}";
-        $data['menu_aside_group'] = $this->Menu_model->get_menu_aside_group();
-        $data['menu_aside_main'] = $this->Menu_model->get_menu_aside_main();
-        $data['menu_aside_sub'] = $this->Menu_model->get_menu_aside_sub();
+        $data['action_url'] = base_url().SYSTEM_NAME."/{$this->module}/store";
+        $data['menu_aside_group'] = $this->MenuMain_model->get_menu_aside_group();
+        $data['menu_aside_main'] = $this->MenuMain_model->get_menu_aside_main();
+        $data['menu_aside_sub'] = $this->MenuMain_model->get_menu_aside_sub();
 
         $this->load->view('backoffice/template/head', $data);
         $this->load->view('backoffice/template/nav');
@@ -49,39 +50,56 @@ class User extends My_Controller
         $this->load->library('form_validation');
         $this->form_validation->set_rules('full_name', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
+        $this->form_validation->set_rules('group_id', 'Group', 'required');
         if ($this->form_validation->run() == FALSE) {
+            $this->LogActivity_model->insert_entry("insert","fail");
             return redirect("{$this->url}add");
         } else {
-            $result = $this->main->insert_entry($post);
-            if ($result) {
-                return redirect("{$this->url}");
+            $id = $this->main->insert_entry($post);
+            $success = $this->UserLogin_model->insert_entry($post,$id);
+            if ($success) {
+                $this->LogActivity_model->insert_entry("insert","success");
+                return redirect("{$this->url}view");
             } else {
+                $this->LogActivity_model->insert_entry("insert","fail");
                 return redirect("{$this->url}add");
             }
         }
     }
 
-    public function list()
+    public function get_list()
     {
         $list = $this->main->get_all_entries();
-        header('Content-type: application/json');
-        echo json_encode($list);
+        if($list){
+            return $this->response_json(200, $list);
+        }else{
+            return $this->response_json(400);
+        }
     }
     
-    public function updateStatus()
+    public function update_status($id = null,$status=null)
     {
-        header('Content-type: application/json');
-        echo json_encode($this->input->post());
-
+        $success = $this->main->update_status($id,$status);
+        if($success){
+            $this->LogActivity_model->insert_entry("update_status","success");
+            return $this->response_json(200);
+        }else{
+            $this->LogActivity_model->insert_entry("update_status","fail");
+            return $this->response_json(400);
+        }
     }
 
     public function destroy($id = null)
     {
-        // echo json_encode($list);
-        $list = $this->main->delete_entry($id);    
-        $result = array('status'=>200,'id'=>$id);
-        header('Content-type: application/json');
-        echo json_encode($result);
+        $success = $this->main->delete_entry($id);
+        if($success){
+            $this->LogActivity_model->insert_entry("delete","success");
+            return $this->response_json(200, array('id'=>$id));
+        }else{
+            $this->LogActivity_model->insert_entry("delete","fail");
+            return $this->response_json(400);
+        }
     }
 }

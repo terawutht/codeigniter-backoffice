@@ -45,9 +45,10 @@
                             <table class="table table-hover text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th width="10%" class="text-center">ลำดับ</th>
-                                        <th width="30%">ชื่อผู้ใช้</th>
-                                        <th>อีเมล</th>
+                                        <th width="5%" class="text-center">ลำดับ</th>
+                                        <th width="20%">ชื่อ</th>
+                                        <th class="text-left">อีเมล</th>
+                                        <th class="text-center">กลุ่ม</th>
                                         <th class="text-center">สถานะ</th>
                                         <th class="text-center">อัพเดทเมื่อวันที่</th>
                                         <th width="20%">การจัดการ</th>
@@ -57,7 +58,9 @@
                                     <tr v-for="(item,index) in items" :key="item.message">
                                         <td class="text-center">{{index+1}}</td>
                                         <td>{{item.full_name}}</td>
-                                        <td>{{item.email}}</td>
+                                        <td class="text-left">{{item.email}}</td>
+                                        <td class="text-center">{{item.group_name}}</td>
+                                       
                                         <td class="text-center">
                                             <!-- <span class="tag tag-success">{{item.status}}</span> -->
                                             <span class="badge badge-success">{{item.status}}</span>
@@ -67,8 +70,8 @@
                                                 <span class="badge badge-success">{{item.status}}</span>
                                             </div> -->
                                         </td>
-                                        <td>
-                                            {{item.update_at}}<br> {{item.update_by}}                                 
+                                        <td class="text-center">
+                                            <span v-if="item.update_at">{{item.updated_at}}<br> {{item.updated_by}}  </span v-else><span>-</span>                         
                                        </td>
                                         <td>
                                             <div class="btn-group">
@@ -106,4 +109,4 @@
 </script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script type="application/javascript" src="<?php echo base_url() ?>assets/js/list.js"></script>
+<script type="application/javascript" src="<?php echo base_url() ?>assets/js/user/list.js"></script>

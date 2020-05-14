@@ -49,23 +49,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'backoffice/Dashboard';
+$route['default_controller'] = SYSTEM_NAME."/Dashboard";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // login
-$route['backoffice/login'] = 'backoffice/Login';
-$route['backoffice/check_login'] = 'backoffice/Login/check_login';
-$route['backoffice/logout'] = 'backoffice/Login/logout';
+$route[SYSTEM_NAME.'/verify_login'] = 'backoffice/Login/verify_login';
+$route[SYSTEM_NAME.'/logout'] = 'backoffice/Login/logout';
 
 //page
-$route['backoffice/dashboard'] = 'backoffice/Dashboard';
-$route['backoffice/news'] = 'backoffice/News';
+$route[SYSTEM_NAME.'/dashboard'] = 'backoffice/Dashboard';
+$route[SYSTEM_NAME.'/news'] = 'backoffice/News';
 
 // user
-$route['backoffice/user'] = 'backoffice/User';
-$route['backoffice/user/add'] = 'backoffice/User/add';
-$route['backoffice/user/updateStatus'] = 'backoffice/User/updateStatus';
-$route['backoffice/user/destroy/(:num)']['DELETE'] = 'backoffice/User/destroy/$1';
+$route[SYSTEM_NAME.'/user/view'] = 'backoffice/User/show';
+$route[SYSTEM_NAME.'/user/add'] = 'backoffice/User/create';
+$route[SYSTEM_NAME.'/user/status']['put'] = 'backoffice/User/update_status';
+$route[SYSTEM_NAME.'/user/destroy/(:num)']['DELETE'] = 'backoffice/User/destroy/$1';
+
+// log activitie
+$route[SYSTEM_NAME.'/log-activity/view'] = 'backoffice/LogActivity/show';
+$route[SYSTEM_NAME.'/log-activity/get_list'] = 'backoffice/LogActivity/get_list';
+
+// log login
+$route[SYSTEM_NAME.'/log-login/view'] = 'backoffice/LogLogin/show';
+$route[SYSTEM_NAME.'/log-login/get_list'] = 'backoffice/LogLogin/get_list';
 
 
