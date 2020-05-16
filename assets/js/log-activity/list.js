@@ -12,7 +12,7 @@ var list = new Vue({
 	},
 	methods: {
 		fetchData: async function () {
-			let response = await fetch(`${this.url}get_list`, {
+			let response = await fetch(`${this.url}list`, {
 				method: "GET",
             }).then((response) => response.json());
             console.log(response)

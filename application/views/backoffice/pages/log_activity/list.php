@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Log Activity</h1>
+                    <h1 class="m-0 text-dark"><?php echo isset($this->module_title)?$this->module_title:'';?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Log Activity</li>
+                        <li class="breadcrumb-item active"><?php echo isset($this->module_title)?$this->module_title:'';?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,11 +24,11 @@
             <!-- Small boxes (Stat box) -->
             <!-- /.row -->
             <div class="row">
-                <div class="col-md-12 col-xl-10">
+                <div class="col-md-12 col-xl-8">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                 <button type="button" v-on:click="exportExcel" class="btn btn-block bg-gradient-primary">Excel</button>
+                                 <button type="button" v-on:click="exportExcel" class="btn btn-block bg-gradient-primary"> <i class="fas fa-file-download" style="font-size:12px;margin-right:5px"></i>Excel</button>
                             </h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -70,6 +70,15 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <!-- /.row -->

@@ -20211,7 +20211,7 @@ html.maximized-card {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: 100vh;
+  height: 60vh;
   -ms-flex-pack: center;
   justify-content: center;
 }

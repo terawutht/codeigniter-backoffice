@@ -55,24 +55,34 @@ $route['translate_uri_dashes'] = FALSE;
 
 // login
 $route[SYSTEM_NAME.'/verify_login'] = 'backoffice/Login/verify_login';
-$route[SYSTEM_NAME.'/logout'] = 'backoffice/Login/logout';
+$route[SYSTEM_NAME.'/Sign-out'] = 'backoffice/Login/sign_out';
 
 //page
-$route[SYSTEM_NAME.'/dashboard'] = 'backoffice/Dashboard';
-$route[SYSTEM_NAME.'/news'] = 'backoffice/News';
+$route[SYSTEM_NAME.'/dashboard/view'] = 'backoffice/Dashboard';
+$route[SYSTEM_NAME.'/news/view'] = 'backoffice/News';
 
 // user
 $route[SYSTEM_NAME.'/user/view'] = 'backoffice/User/show';
+$route[SYSTEM_NAME.'/user/edit/(:num)'] = 'backoffice/User/edit/$1';
 $route[SYSTEM_NAME.'/user/add'] = 'backoffice/User/create';
 $route[SYSTEM_NAME.'/user/status']['put'] = 'backoffice/User/update_status';
 $route[SYSTEM_NAME.'/user/destroy/(:num)']['DELETE'] = 'backoffice/User/destroy/$1';
 
+// group
+$route[SYSTEM_NAME.'/group/view'] = 'backoffice/Group/show';
+$route[SYSTEM_NAME.'/group/edit/(:num)'] = 'backoffice/Group/edit/$1';
+$route[SYSTEM_NAME.'/group/add'] = 'backoffice/Group/create';
+$route[SYSTEM_NAME.'/group/status']['put'] = 'backoffice/Group/update_status';
+$route[SYSTEM_NAME.'/group/destroy/(:num)']['DELETE'] = 'backoffice/Group/destroy/$1';
+
 // log activitie
 $route[SYSTEM_NAME.'/log-activity/view'] = 'backoffice/LogActivity/show';
-$route[SYSTEM_NAME.'/log-activity/get_list'] = 'backoffice/LogActivity/get_list';
+$route[SYSTEM_NAME.'/log-activity/list'] = 'backoffice/LogActivity/get_list';
+$route[SYSTEM_NAME.'/log-activity/num_rows'] = 'backoffice/LogActivity/get_num_rows';
 
 // log login
 $route[SYSTEM_NAME.'/log-login/view'] = 'backoffice/LogLogin/show';
-$route[SYSTEM_NAME.'/log-login/get_list'] = 'backoffice/LogLogin/get_list';
+$route[SYSTEM_NAME.'/log-login/list'] = 'backoffice/LogLogin/get_list';
+$route[SYSTEM_NAME.'/log-login/num_rows'] = 'backoffice/LogLogin/get_num_rows';
 
 

@@ -15,6 +15,7 @@ var list = new Vue({
 			let response = await fetch(`${this.url}get_list`, {
 				method: "GET",
 			}).then((response) => response.json());
+			console.log(response.data)
 			if (response.status === 200) {
 				this.items = response.data;
 			} else {
@@ -44,6 +45,9 @@ var list = new Vue({
 		},
 		toAddPage: function () {
 			window.location.href = `${this.url}add`;
+		},
+		toEditPage: function (id) {
+			window.location.href = `${this.url}edit/${id}`;
 		},
 	},
 });

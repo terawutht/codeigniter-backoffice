@@ -13,11 +13,13 @@ class UserProfile_model extends CI_Model
 
     public function get_all_entries()
     {
-        $this->db->select("{$this->table_name}.id,full_name,status,created_at,created_by,updated_at,updated_by,sys_user_group.name as group_name,sys_user_login.username as email");
-        $this->db->from($this->table_name);
-        $this->db->join('sys_user_login', "{$this->table_name}.id = sys_user_login.user_profile_id", 'LEFT');
-        $this->db->join('sys_user_group', "{$this->table_name}.group_id = sys_user_group.id", 'LEFT');
-        $this->db->order_by("{$this->table_name}.id", 'DESC');
+        $this->db->select("n.full_name,status,created_at,created_by,updated_at,updated_by,
+        sys_user_group.name as group_name,
+        sys_user_login.username as email");
+        $this->db->from($this->table_name." n");
+        $this->db->join('sys_user_login', "n.id = sys_user_login.user_profile_id", 'LEFT');
+        $this->db->join('sys_user_group', "n.group_id = sys_user_group.id", 'LEFT');
+        $this->db->order_by("n.id", 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -32,8 +34,24 @@ class UserProfile_model extends CI_Model
 
     public function get_last_ten_entries()
     {
-        $query = $this->db->get($this->table_name, 10);
+        $this->db->select("{$this->table_name}.id,full_name,status,created_at,created_by,updated_at,updated_by,sys_user_group.name as group_name,sys_user_login.username as email");
+        $this->db->from($this->table_name);
+        $this->db->join('sys_user_login', "{$this->table_name}.id = sys_user_login.user_profile_id", 'LEFT');
+        $this->db->join('sys_user_group', "{$this->table_name}.group_id = sys_user_group.id", 'LEFT');
+        $this->db->limit(10);
+        $this->db->order_by("{$this->table_name}.id", 'DESC');
+        $query = $this->db->get();
         return $query->result();
+    }
+
+    public function get_row_by_id($id=null){
+        $this->db->select("{$this->table_name}.id,full_name,group_id,status,sys_user_login.username as email");
+        $this->db->from($this->table_name);
+        $this->db->join('sys_user_login', "{$this->table_name}.id = sys_user_login.user_profile_id", 'LEFT');
+        $this->db->where("{$this->table_name}.id",$id);
+        $query = $this->db->get();
+        return $query->row();
+
     }
 
     public function insert_entry($post)
@@ -49,13 +67,17 @@ class UserProfile_model extends CI_Model
         return ($this->db->affected_rows() != 1) ? 0 : $this->db->insert_id();
     }
 
-    public function update_entry()
+    public function update_entry($post)
     {
-        $this->title    = $_POST['title'];
-        $this->content  = $_POST['content'];
-        $this->date     = time();
+        $this->data['full_name'] = $post['full_name'];
+        $this->data['status'] = $post['status'];
+        $this->data['group_id'] = $post['group_id'];
+        $this->data['updated_at'] = _get_datetime();
+        $this->data['updated_by'] = $this->uesr_id;
 
-        $this->db->update($this->table_name, $this, array('id' => $_POST['id']));
+        $this->db->where('id', $post['id']);
+        $this->db->update($this->table_name,$this->data);
+        return ($this->db->affected_rows() != 1) ? false : true;
     }
 
     public function update_status($id, $status)

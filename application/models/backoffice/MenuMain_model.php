@@ -12,36 +12,26 @@ class MenuMain_model extends CI_Model
         parent::__construct();
     }
 
-
     public function get_menu_aside_group()
-    {
-        return array
-        (
-            (object) array('id'=>1,'name'=>"Dashboard",'path'=>'backoffice/dashboard'),
-            (object) array('id'=>2,'name'=>"News",'path'=>'backoffice/news'),
-            (object) array('id'=>3,'name'=>"settings",'path'=>null),  
-        );
+    { 
+        $this->db->order_by("order","ASC");
+        $query = $this->db->get('sys_menu_group');
+        return $query->result();
     }
 
     public function get_menu_aside_main()
     {
-        return array
-        (
-            (object) array('id'=>1,'name'=>"User",'group_id'=>3,'path'=>'backoffice/user/view'),
-            (object) array('id'=>2,'name'=>"Permission",'group_id'=>3,'path'=>'backoffice/permission'),
-            (object) array('id'=>3,'name'=>"Log",'group_id'=>3,'path'=>null),
-        );
+        $this->db->order_by("order","ASC");
+        $query = $this->db->get('sys_menu_main');
+        return $query->result();
     }
 
     public function get_menu_aside_sub()
     {
-        return array
-        (
-            (object) array('id'=>1,'name'=>"Activities",'menu_main_id'=>3,'path'=>'backoffice/log-activity/view'),
-            (object) array('id'=>2,'name'=>"Login",'menu_main_id'=>3,'path'=>'backoffice/log-login/view'),
-        );
+        $this->db->order_by("order","ASC");
+        $query = $this->db->get('sys_menu_sub');
+        return $query->result();
     }
-
 
     public function get_last_ten_entries()
     {

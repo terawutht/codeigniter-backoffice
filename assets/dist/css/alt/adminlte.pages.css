@@ -215,7 +215,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   background: #e9ecef;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 60vh;
   justify-content: center;
 }
 

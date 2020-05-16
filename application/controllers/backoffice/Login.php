@@ -33,6 +33,7 @@ class Login extends CI_Controller
                 $this->LogLogin_model->insert_entry("login","success");
                 return redirect("backoffice/dashboard");
             }else{
+                $this->session->set_flashdata('alert', 'username หรือ password ไม่ถูกต้อง');
                 $this->LogLogin_model->insert_entry("login","Wrong password");
                 return redirect("backoffice/login");
             }
@@ -41,7 +42,7 @@ class Login extends CI_Controller
         }
     }
 
-    public function logout()
+    public function sign_out()
     {
         $this->LogLogin_model->insert_entry("logout","success");
         $user = array('user_id','fullname', 'email', 'role','logged_in');

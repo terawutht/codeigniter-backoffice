@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends My_Controller
+class Group extends My_Controller
 {
+    var $url;
     var $module_name;
     var $module_file;
     var $module_title;
-    var $url;
 
     public function __construct()
     {
         parent::__construct();
-        $this->module_name = 'user';
-        $this->module_file = 'user';
-        $this->module_title = 'User';
+        $this->module_name = 'group';
+        $this->module_file = 'group';
+        $this->module_title = 'Group & Permission';
+        $this->load->model('UserGroup_model', 'main');
         $this->url = base_url() . "" . SYSTEM_NAME . "/".$this->module_name."/";
-        $this->load->model('UserProfile_model', 'main');
         $this->verify_logged_in();
     }
 
@@ -75,6 +75,9 @@ class User extends My_Controller
     public function store()
     {
         $post = $this->input->post();
+        echo '<pre>';
+        print_r($post);
+        exit;
         $this->load->library('form_validation');
         $this->form_validation->set_rules('full_name', 'Username', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
@@ -99,7 +102,10 @@ class User extends My_Controller
 
     public function update()
     {
-        $post = $this->input->post();      
+        $post = $this->input->post();  
+        echo '<pre>';
+        print_r($post);
+        exit;    
         if ($post) {
             $id = $post['id'];
             $this->load->library('form_validation');
@@ -126,10 +132,7 @@ class User extends My_Controller
 
     public function get_list()
     {
-        $list = $this->main->get_all_entries();
-        // echo '<pre>';
-        // print_r($list);
-        // exit;
+        $list = $this->main->get_last_ten_entries();
         if ($list) {
             return $this->response_json(200, $list);
         } else {
@@ -152,10 +155,10 @@ class User extends My_Controller
     {
         // $success = $this->main->update_status($id,$status);
         // if($success){
-        //     $this->LogActivity_model->insert_entry("update status","success");
+        //     $this->LogActivity_model->insert_entry("update_status","success");
         //     return $this->response_json(200);
         // }else{
-        //     $this->LogActivity_model->insert_entry("update status","fail");
+        //     $this->LogActivity_model->insert_entry("update_status","fail");
         return $this->response_json(400);
         // }
     }

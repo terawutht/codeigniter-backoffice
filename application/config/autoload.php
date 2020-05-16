@@ -137,6 +137,6 @@ $autoload['model'] = array(
     'backoffice/UserProfile_model',
     'backoffice/UserLogin_model',
     'backoffice/LogActivity_model',
-    'backoffice/LogLogin_model'
-
+    'backoffice/LogLogin_model',
+    'backoffice/UserGroup_model'
 );
