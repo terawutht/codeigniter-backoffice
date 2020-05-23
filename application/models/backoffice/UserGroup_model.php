@@ -17,6 +17,13 @@ class UserGroup_model extends CI_Model
         return $query->result();
     }
 
+    public function get_all_at_enable()
+    {
+        $this->db->where('status','enable');
+        $query = $this->db->get($this->table_name);
+        return $query->result();
+    }
+
     public function get_last_ten_entries()
     {
         $query = $this->db->get($this->table_name, 10);

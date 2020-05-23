@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">User</h1>
+                    <h1 class="m-0 text-dark"><?php echo isset($this->module_title)?$this->module_title:'-';?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">User</li>
+                        <li class="breadcrumb-item active"><?php echo isset($this->module_title)?$this->module_title:'-';?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -67,7 +67,7 @@
                                         </td>
                                         <td class="text-center">
                                             <span v-if="item.updated_at">{{item.updated_at}}</span>
-                                             <span v-else>-</span>                                   
+                                            <span v-else>-</span>                                   
                                         </td>
                                         <td>
                                             <div class="btn-group">
@@ -75,7 +75,7 @@
                                                 <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                     <div class="dropdown-menu" role="menu">                                                    
-                                                        <a class="dropdown-item" href="#" v-on:click="toEditPage(item.id)"><i class="fas fa-edit" style="font-size:12px;margin-right:5px">แก้ไข</a>
+                                                        <a class="dropdown-item" href="#" v-on:click="toEditPage(item.id)">แก้ไข</a>
                                                         <a class="dropdown-item" href="#" v-on:click="updateStatus(item.id)">
                                                             <span v-if="item.status === 'enable' ">ปิดการใช้งาน</span>
                                                             <span v-else>เปิดการใช้งาน</span>

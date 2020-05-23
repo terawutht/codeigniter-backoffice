@@ -65,6 +65,7 @@ $route[SYSTEM_NAME.'/news/view'] = 'backoffice/News';
 $route[SYSTEM_NAME.'/user/view'] = 'backoffice/User/show';
 $route[SYSTEM_NAME.'/user/edit/(:num)'] = 'backoffice/User/edit/$1';
 $route[SYSTEM_NAME.'/user/add'] = 'backoffice/User/create';
+// $route[SYSTEM_NAME.'/user/verify']['POST'] = 'backoffice/User/verify_form_add';
 $route[SYSTEM_NAME.'/user/status']['put'] = 'backoffice/User/update_status';
 $route[SYSTEM_NAME.'/user/destroy/(:num)']['DELETE'] = 'backoffice/User/destroy/$1';
 

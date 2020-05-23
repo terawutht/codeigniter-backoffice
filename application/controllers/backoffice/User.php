@@ -5,7 +5,7 @@ class User extends My_Controller
 {
     var $module_name;
     var $module_file;
-    var $module_title;
+    public $module_title;
     var $url;
 
     public function __construct()
@@ -14,9 +14,9 @@ class User extends My_Controller
         $this->module_name = 'user';
         $this->module_file = 'user';
         $this->module_title = 'User';
-        $this->url = base_url() . "" . SYSTEM_NAME . "/".$this->module_name."/";
+        $this->url = base_url() . "" . SYSTEM_NAME . "/" . $this->module_name . "/";
         $this->load->model('UserProfile_model', 'main');
-        $this->verify_logged_in();
+     //   $this->verify_logged_in();
     }
 
     public function show()
@@ -40,6 +40,8 @@ class User extends My_Controller
         $data['menu_aside_group'] = $this->MenuMain_model->get_menu_aside_group();
         $data['menu_aside_main'] = $this->MenuMain_model->get_menu_aside_main();
         $data['menu_aside_sub'] = $this->MenuMain_model->get_menu_aside_sub();
+
+        $data['group'] = $this->UserGroup_model->get_all_at_enable();
 
         $this->load->view('backoffice/template/head', $data);
         $this->load->view('backoffice/template/nav');
@@ -77,7 +79,7 @@ class User extends My_Controller
         $post = $this->input->post();
         $this->load->library('form_validation');
         $this->form_validation->set_rules('full_name', 'Username', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
         $this->form_validation->set_rules('group_id', 'Group', 'required');
@@ -99,7 +101,7 @@ class User extends My_Controller
 
     public function update()
     {
-        $post = $this->input->post();      
+        $post = $this->input->post();
         if ($post) {
             $id = $post['id'];
             $this->load->library('form_validation');
@@ -124,12 +126,32 @@ class User extends My_Controller
         }
     }
 
+    public function verify_form_add()
+    {
+        $post = $this->input->post();
+        if ($post) {
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('full_name', 'Fullname', 'required');
+            $this->form_validation->set_rules('email', 'Email', 'required');
+            if ($this->form_validation->run() == FALSE) {
+                $this->LogActivity_model->insert_entry("update", "fail");
+                return $this->response_json(400,'post fail');
+            } else {
+                $is_duplicate_email = $this->main->verify_email($post['email']);
+                $is_duplicate_fullname = $this->main->verify_fullname($post['full_name']);
+                return $this->response_json(200, array(
+                    'email' => $is_duplicate_email,
+                    'full_name' => $is_duplicate_fullname
+                ));
+            }
+        } else {
+            return $this->response_json(400);
+        }
+    }
+
     public function get_list()
     {
-        $list = $this->main->get_all_entries();
-        // echo '<pre>';
-        // print_r($list);
-        // exit;
+        $list = $this->main->get_last_ten_entries();
         if ($list) {
             return $this->response_json(200, $list);
         } else {
